@@ -1,0 +1,13 @@
+{
+    "name": "testpackage/package1",
+    "description": "my first package",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "testpackage\\package1\\": "src/"
+        }
+    },
+    "require": {}
+}
