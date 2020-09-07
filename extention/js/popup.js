@@ -13,6 +13,7 @@ $(document).ready(function(){
                 email : email,
                 password : password
              }, function(response) {});
+
         })
     })
 
@@ -37,14 +38,34 @@ $(document).ready(function(){
                     type : 'logout',
                 }, function(response) {});
         })
+        $('form').show();
     })
 
     chrome.storage.sync.get(['status'], function(result) {
         console.log(result.status)
         if (result.status == 'autorisated'){
             $('form').hide();
-            $('#info').append('<div>'+'Вас авторизовано'+'</div>');
+            $('#info').append('<div>' + 'Вас авторизовано!' + '</div>');
         }
     })
+
+
+    chrome.runtime.onMessage.addListener(function (result){
+
+        if (result.type == 'error'){
+            $('#error').append('<div>' + result.text + '</div>');
+        }
+
+        if (result.type == 'success'){
+            $('#error').hide();
+            $('form').hide();
+            $('#info').append('<div>' + result.text + '</div>');
+        }
+
+    })
+
+
+
+
 
 })

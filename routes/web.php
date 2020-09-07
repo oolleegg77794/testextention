@@ -32,5 +32,5 @@ Route::post('/logout', 'ExtentionController@logout');
 Route::post('/get_site', 'ExtentionController@get_site');
 
 
-Route::any('test', 'ExtentionController@test');
+Route::any('index', 'ExtentionController@index');
 

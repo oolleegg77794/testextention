@@ -15,67 +15,58 @@ class ExtentionController extends Controller
 {
 
     /**
-     * @var User
-     */
-    public $user;
-
-    /**
      * @var Request
      */
     public $request;
 
-
-    
-    public function authenticate(Request $request)
+    public function __construct(Request $request)
     {
+        $this->request = $request;
+        $this->url = $request->input('url');
 
+    }
+
+    public function authenticate()
+    {
         $credentials = [
-            'email' => $request->input('email'),
-            'password' => $request->input('password')
+            'email' => $this->request->input('email'),
+            'password' => $this->request->input('password')
         ];
-        Sentinel::logout();
 
-        Sentinel::forceAuthenticate($credentials);
+        Sentinel::Authenticate($credentials);
 
-        if ($user = Sentinel::check()) {
-            return $ses = Session::get('cartalyst_sentinel');
+        if (Sentinel::check()) {
+            return  Session::get('cartalyst_sentinel');
         }
         return 'error';
 
     }
 
-
-
-    public function register(Request $request)
+    public function register()
     {
-
-        $credentials = [
-            'email' => $request->input('email'),
-            'password' => $request->input('password')
-        ];
-
-        return Sentinel::register($credentials);
-
+        return Sentinel::register([
+            'email' => $this->request->input('email'),
+            'password' => $this->request->input('password')
+        ]);
     }
 
     public function logout()
     {
-
         return Sentinel::logout();
-
     }
 
-    public function get_site(Request $request)
+    public function get_site()
     {
+        $user = Sentinel::findByPersistenceCode($this->request->input('session'));
+        $site = new Sites(['url' => $this->url]);
+        return $user->site()->save($site);
 
-        $url = $request->input('url');
-        $user = Sentinel::findById(4);
-
-        $site = new Sites(['url' => $url]);
-        $user->site()->save($site);
-        return $session = $request->input('session');
     }
 
+    public function index()
+    {
+        return view('index');
+    }
 
 }
 

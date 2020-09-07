@@ -11,6 +11,13 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/asm89/stack-cors" />
@@ -132,15 +139,15 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\OSPanel\domains\OLXO\testProject\app\testpackage\views" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\OSPanel\domains\OLXO\testProject\app\Models" />
       <recent name="C:\OSPanel\domains\OLXO\chat\app\Http\Controllers" />
       <recent name="C:\OSPanel\domains\OLXO\chat\ws.server" />
       <recent name="C:\OSPanel\domains\OLXO\testProject\app\Http\Controllers" />
       <recent name="C:\OSPanel\domains\OLXO\testProject\app\testpackage\Controllers" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\OSPanel\domains\OLXO\testProject\app\testpackage\views" />
     </key>
   </component>
   <component name="RunManager">
@@ -170,7 +177,10 @@
       <workItem from="1598337580547" duration="11375000" />
       <workItem from="1598424124671" duration="687000" />
       <workItem from="1598427245194" duration="2554000" />
-      <workItem from="1599146531234" duration="14774000" />
+      <workItem from="1599146531234" duration="15374000" />
+      <workItem from="1599221851668" duration="7322000" />
+      <workItem from="1599312964208" duration="8889000" />
+      <workItem from="1599466426854" duration="3921000" />
     </task>
     <servers />
   </component>
