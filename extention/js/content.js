@@ -1,10 +1,23 @@
 
-
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
+// Avoid recursive frame insertion...
+var extensionOrigin = 'chrome-extension://' + chrome.runtime.id;
+if (!location.ancestorOrigins.contains(extensionOrigin)) {
+    var iframe = document.createElement('iframe');
+    // Must be declared at web_accessible_resources in manifest.json
+    iframe.src = chrome.runtime.getURL('iframe.html');
+
+    // Some styles for a fancy sidebar
+    iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;' +
+        'width:100%;height:100%;z-index:1000;';
+    document.body.appendChild(iframe);
+    $('body')
+}
 
 
 const getChromeStorage = (key, closure= () => null) =>  {
@@ -22,7 +35,15 @@ const formRequest = (url, data, onSuccess) => {
         data: data,
         success: onSuccess
     });
-};
+}
+
+const sendMessage = (type, text) => {
+    chrome.runtime.sendMessage({
+        type : type,
+        text : text
+    });
+}
+
 
 class RequestListener
 {
@@ -41,16 +62,10 @@ class RequestListener
                     setChromeStorage({session: response})
                     setChromeStorage({status: status})
                     setChromeStorage({email: email})
-                    chrome.runtime.sendMessage({
-                        type : 'success',
-                        text : 'Вас авторизовано!'
-                    })
+                    sendMessage('success','Вас авторизовано!')
                 }
                 if ("error" === response) {
-                    chrome.runtime.sendMessage({
-                        type : 'error',
-                        text : 'Не правильний email або пароль!'
-                    });
+                    sendMessage('error','Не правильний email або пароль!')
                 }
             }
         )
@@ -78,22 +93,29 @@ class RequestListener
             }
         )
     }
-    onGetsite(result){
-        formRequest(
-            "https://test.local/api/get_site",
-            {
-                session: result.session,
-                url: window.location.href
-            },
-            function (data) {
-                console.log('get site success')
+    onGetsite(){
+        getChromeStorage('status', (result) => {
+            if ("autorisated" === result.status) {
+                getChromeStorage('session', (result) =>
+                    formRequest(
+                        "https://test.local/api/get_site",
+                        {
+                            session: result.session,
+                            url: window.location.href
+                        },
+                        function (data) {
+                            console.log('get site success')
+                        }
+                    )
+                )
             }
-        )
+        })
     }
+
 }
 
 
-chrome.runtime.onMessage.addListener(function (query, sender, sendResponse){
+chrome.runtime.onMessage.addListener(function (query){
     switch (query.type) {
         case 'auth' :
             new RequestListener().onAuth(query)
@@ -110,13 +132,7 @@ chrome.runtime.onMessage.addListener(function (query, sender, sendResponse){
 
 })
 
-getChromeStorage('status', (result) => {
-    if ("autorisated" === result.status) {
-        getChromeStorage('session', (result) =>
-            new RequestListener().onGetsite(result)
-        )
-    }
-})
+new RequestListener().onGetsite()
 
 
 
