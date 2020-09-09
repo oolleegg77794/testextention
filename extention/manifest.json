@@ -36,7 +36,8 @@
     "tabs"
   ],
   "web_accessible_resources": [
-    "iframe.html",
+    "iframe1.html",
+    "iframe2.html",
     "js/iframe.js"
   ]
 

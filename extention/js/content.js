@@ -5,19 +5,11 @@ $.ajaxSetup({
     }
 });
 
-// Avoid recursive frame insertion...
-var extensionOrigin = 'chrome-extension://' + chrome.runtime.id;
-if (!location.ancestorOrigins.contains(extensionOrigin)) {
-    var iframe = document.createElement('iframe');
-    // Must be declared at web_accessible_resources in manifest.json
-    iframe.src = chrome.runtime.getURL('iframe.html');
 
-    // Some styles for a fancy sidebar
-    iframe.style.cssText = 'position:fixed;top:0;left:0;display:block;' +
-        'width:100%;height:100%;z-index:1000;';
-    document.body.appendChild(iframe);
-    $('body')
-}
+
+
+
+
 
 
 const getChromeStorage = (key, closure= () => null) =>  {
@@ -44,6 +36,12 @@ const sendMessage = (type, text) => {
     });
 }
 
+const Toolbar = (type)=> {
+    var iframe = document.createElement('iframe');
+    iframe.src = chrome.runtime.getURL(type+'.html');
+    $(iframe).css({position:'fixed',display:'block',top:-1,left:0,width:100+'%',height:57+'px', border:'none', zIndex:1000})
+    $('body').css({paddingTop:40}).prepend(iframe)
+}
 
 class RequestListener
 {
@@ -63,6 +61,7 @@ class RequestListener
                     setChromeStorage({status: status})
                     setChromeStorage({email: email})
                     sendMessage('success','Вас авторизовано!')
+                    Toolbar('iframe1')
                 }
                 if ("error" === response) {
                     sendMessage('error','Не правильний email або пароль!')
@@ -90,6 +89,7 @@ class RequestListener
                 let status = 'not autorisated'
                 setChromeStorage({status: status})
                 console.log('success logout')
+                Toolbar('iframe2')
             }
         )
     }
@@ -111,7 +111,14 @@ class RequestListener
             }
         })
     }
-
+    onGettoolbar(){
+        getChromeStorage('status', (result) => {
+            if ("autorisated" === result.status) {
+                Toolbar('iframe1')
+            }
+            else {Toolbar('iframe2')}
+        })
+    }
 }
 
 
@@ -133,6 +140,7 @@ chrome.runtime.onMessage.addListener(function (query){
 })
 
 new RequestListener().onGetsite()
+new RequestListener().onGettoolbar()
 
 
 
