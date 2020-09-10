@@ -18,6 +18,12 @@
       "css": ["css/site.css"],
       "js": [
         "js/jquery-3.5.1.min.js",
+
+        "js/src/AuthManager.js",
+        "js/src/ChromeStorage.js",
+        "js/src/EventManager.js",
+        "js/src/WtgToolBar.js",
+
         "js/content.js"
       ]
     }

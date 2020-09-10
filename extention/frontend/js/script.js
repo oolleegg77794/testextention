@@ -65,3 +65,15 @@ const closeModalOutside = (e) => {
         closeModal(modal, setBtn);
     }
 }
+
+
+//-----------------------
+
+chrome.tabs.query({currentWindow: true, active: true},
+    function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {
+            type : 'type1',
+            text : 'text1'
+        }, function (response) {});
+    }
+)

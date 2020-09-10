@@ -13,8 +13,6 @@ $(document).ready(function(){
         )
     }
 
-
-
     $('#auth').on('click',function () {
         sendExtentionData('auth')
     })
@@ -36,7 +34,6 @@ $(document).ready(function(){
         }
     })
 
-
     chrome.runtime.onMessage.addListener(function (result){
 
         if (result.type == 'error'){
@@ -50,5 +47,7 @@ $(document).ready(function(){
         }
 
     })
+
+
 
 })
