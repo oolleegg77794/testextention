@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Запускатор Tproger</title>
+    <title>WTG-toolbar</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
           crossorigin="anonymous">
@@ -17,21 +17,18 @@
 <body>
 
     <div class="modal-header">
-        <h1 class="logo">
-            <img class="logo-icon" src="images/Logos-Register-Editor-icon.png">My first extention
-        </h1>
+        <h1>WTG-toolbar</h1>
     </div>
 
     <div class="container">
         <form>
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <label for="inputEmail">Email address</label>
+                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
             </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+            <div class="form-group" style="margin-bottom: 0">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" id="inputPassword">
             </div>
         </form>
         <div id="info"></div>
@@ -45,7 +42,7 @@
     </div>
 
 </body>
-<div class="extention_version" style="text-align: center;" >v.1.0.0.0</div>
-
-
+    <div class="modal-footer">
+        <img class="footer-logo" src="images/logo.svg">
+    </div>
 </html>

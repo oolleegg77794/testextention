@@ -3,15 +3,14 @@ $(document).ready(function(){
 
     const sendExtentionData = (type) => {
         chrome.tabs.query({currentWindow: true, active: true},
-            function (tabs){
-                let email = $('#exampleInputEmail1').val(),
-                    password = $('#exampleInputPassword1').val();
+            function (tabs) {
                 chrome.tabs.sendMessage(tabs[0].id, {
-                    type : type,
-                    email : email,
-                    password : password
-                }, function(response) {});
-            })
+                    type: type,
+                    email: $('#inputEmail').val(),
+                    password: $('#inputPassword').val()
+                }, function (response) {});
+            }
+        )
     }
 
 
@@ -51,9 +50,5 @@ $(document).ready(function(){
         }
 
     })
-
-
-
-
 
 })

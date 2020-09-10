@@ -6,12 +6,6 @@ $.ajaxSetup({
 });
 
 
-
-
-
-
-
-
 const getChromeStorage = (key, closure= () => null) =>  {
     chrome.storage.sync.get([key], closure);
 }
@@ -39,6 +33,7 @@ const sendMessage = (type, text) => {
 const Toolbar = (type)=> {
     var iframe = document.createElement('iframe');
     iframe.src = chrome.runtime.getURL(type+'.html');
+    iframe.id  = type;
     $(iframe).css({position:'fixed',display:'block',top:-1,left:0,width:100+'%',height:57+'px', border:'none', zIndex:1000})
     $('body').css({paddingTop:40}).prepend(iframe)
 }
@@ -54,13 +49,11 @@ class RequestListener
             },
             function (response) {
                 if("error" !== response) {
-                    let status = 'autorisated',
-                        session = response,
-                        email = query.email
                     setChromeStorage({session: response})
-                    setChromeStorage({status: status})
-                    setChromeStorage({email: email})
+                    setChromeStorage({status: 'autorisated'})
+                    setChromeStorage({email: query.email})
                     sendMessage('success','Вас авторизовано!')
+                    $('#iframe2').remove()
                     Toolbar('iframe1')
                 }
                 if ("error" === response) {
@@ -89,6 +82,7 @@ class RequestListener
                 let status = 'not autorisated'
                 setChromeStorage({status: status})
                 console.log('success logout')
+                $('#iframe1').remove()
                 Toolbar('iframe2')
             }
         )
@@ -139,13 +133,8 @@ chrome.runtime.onMessage.addListener(function (query){
 
 })
 
-new RequestListener().onGetsite()
+/*new RequestListener().onGetsite()*/
 new RequestListener().onGettoolbar()
-
-
-
-
-
 
 
 
