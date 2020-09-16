@@ -23,6 +23,8 @@ Route::post('logout', 'ExtentionController@logout');
 
 Route::post('get_site', 'ExtentionController@get_site');
 
+Route::get('getdata', 'ExtentionController@get_ext_data');
+
 
 
 

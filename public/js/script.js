@@ -80,14 +80,14 @@
      }
 
      $('#auth').on('click', function () {
-         let email = $('#exampleInputEmail1').val(),
-             password = $('#exampleInputPassword1').val();
+         let email = $('#inputEmail').val(),
+             password = $('#inputPassword').val();
          new RequestListener().onAuth(email, password);
      })
 
      $('#reg').on('click', function () {
-         let email = $('#exampleInputEmail1').val(),
-             password = $('#exampleInputPassword1').val();
+         let email = $('#inputEmail').val(),
+             password = $('#inputPassword').val();
          new RequestListener().onReg(email, password);
      })
 

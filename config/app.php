@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         \App\testpackage\PackageServiceProvider::class,
         \App\testpackage\LarashoutServiceProvider::class,
+        \ChromeExtension\ChromeExtensionProvider::class,
 
         /*
          * Package Service Providers...

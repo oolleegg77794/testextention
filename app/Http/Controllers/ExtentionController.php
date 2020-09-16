@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\Sites;
@@ -8,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Sentinel;
 use Activation;
-use Illuminate\Support\Facades\Cookie;
-
 
 class ExtentionController extends Controller
 {
@@ -22,7 +19,6 @@ class ExtentionController extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->url = $request->input('url');
 
     }
 
@@ -57,15 +53,21 @@ class ExtentionController extends Controller
 
     public function get_site()
     {
+        $url = $this->request->input('url');
         $user = Sentinel::findByPersistenceCode($this->request->input('session'));
-        $site = new Sites(['url' => $this->url]);
+        $site = new Sites(['url' => $url]);
         return $user->site()->save($site);
 
     }
 
-    public function index()
-    {
+    public function get_ext_data(){
+        return $this->request;
+
+    }
+
+    public function index(){
         return view('index');
+
     }
 
 }

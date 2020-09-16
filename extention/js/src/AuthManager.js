@@ -9,9 +9,9 @@ class AuthManager {
     }
 
     constructor(query) {
-        this.authUrl = "https://test.local/api/authenticate"
-        this.regUrl = "https://test.local/api/register"
-        this.logOutUrl = "https://test.local/api/logout"
+        this.authUrl = "https://test.extention/api/authenticate"
+        this.regUrl = "https://test.extention/api/register"
+        this.logOutUrl = "https://test.extention/api/logout"
         this.chromeStorage = new ChromeStorage()
         this.toolbar = new WtgToolBar()
         this.query = query
@@ -95,6 +95,8 @@ class AuthManager {
             success: onSuccess
         });
     }
+
+
 
 }
 

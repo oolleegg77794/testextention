@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::any('/redis', 'RedisController@redis')->name('redis');
-
 
 
 Auth::routes();
@@ -32,5 +30,5 @@ Route::post('/logout', 'ExtentionController@logout');
 Route::post('/get_site', 'ExtentionController@get_site');
 
 
-Route::any('index', 'ExtentionController@index');
+Route::any('/', 'ExtentionController@index');
 

@@ -116,5 +116,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="chat" />
     <orderEntry type="module" module-name="extention" />
+    <orderEntry type="module" module-name="extention" />
+    <orderEntry type="module" module-name="extention" />
   </component>
 </module>

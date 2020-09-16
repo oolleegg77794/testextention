@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4ddafd239dab22c709471bb1dc7e320",
+    "content-hash": "6e2b0dc6cc777be50a95abd543fe51e6",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1479,6 +1479,46 @@
                 }
             ],
             "time": "2020-07-23T08:41:23+00:00"
+        },
+        {
+            "name": "mykola_chrome_extension/chrome-extension",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BadMathematician2/ChromeExtension.git",
+                "reference": "5243e4e5fe95cf6747ad35438b914a7c89a4d1fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BadMathematician2/ChromeExtension/zipball/5243e4e5fe95cf6747ad35438b914a7c89a4d1fb",
+                "reference": "5243e4e5fe95cf6747ad35438b914a7c89a4d1fb",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\ChromeExtension\\ChromeExtensionProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ChromeExtension\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mykola",
+                    "email": "mathematic204chnu@gmail.com"
+                }
+            ],
+            "description": "Take information by domain",
+            "time": "2020-09-15T06:51:11+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -6758,7 +6798,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "mykola_chrome_extension/chrome-extension": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

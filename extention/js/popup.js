@@ -27,7 +27,6 @@ $(document).ready(function(){
     })
 
     chrome.storage.sync.get(['status'], function(result) {
-        console.log(result.status)
         if (result.status == 'autorisated'){
             $('form').hide();
             $('#info').append('<div>' + 'Вас авторизовано!' + '</div>');
@@ -50,4 +49,12 @@ $(document).ready(function(){
 
 
 
+
+
+
+
+
 })
+
+
+

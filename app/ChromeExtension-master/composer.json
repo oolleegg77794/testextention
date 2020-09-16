@@ -1,0 +1,24 @@
+{
+    "name": "mykola_chrome_extension/chrome-extension",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mykola",
+            "email": "mathematic204chnu@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ChromeExtension\\": "src"
+        }
+    },
+    "description": "Take information by domain",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "\\ChromeExtension\\ChromeExtensionProvider"
+            ]
+        }
+    }
+}
