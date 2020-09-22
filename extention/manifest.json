@@ -43,7 +43,18 @@
   ],
   "web_accessible_resources": [
     "iframe1.html",
-    "iframe2.html"
+    "iframe2.html",
+    "iframe.html",
+    "frontend/index.html",
+    "frontend/logout.html",
+    "frontend/css/styles.min.css",
+    "frontend/js/script.min.js",
+    "frontend/img/*.*",
+    "frontend/svg/login.svg",
+    "frontend/svg/logo.svg",
+    "js/iframe.js",
+    "images/*.*"
+
   ]
 
   }

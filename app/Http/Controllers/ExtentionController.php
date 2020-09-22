@@ -19,7 +19,6 @@ class ExtentionController extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
-
     }
 
     public function authenticate()

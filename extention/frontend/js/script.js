@@ -1,14 +1,47 @@
-
 //Preloader
-window.addEventListener('load', () => {
+// window.addEventListener('DOMContentLoaded', () => {
+//     alert('yes');
+//
+//
+//
+// })
 
-    let optionBlocks = [...document.querySelectorAll('.js-wtg-toolbar__option-block')];
+let optionBlocks = [...document.querySelectorAll('.js-wtg-toolbar__option-block')],
+    imageCounter = 0;
 
-    optionBlocks.forEach( el => {
-        el.classList.remove('preloader');
+optionBlocks.forEach( el => {
+
+    let images = el.querySelectorAll('img'),
+        imagesLen = images.length;
+
+    images.forEach( elem => {
+
+
+
+        if (elem.complite) {
+            console.log(elem);
+        }
+        //
+        // elem.addEventListener('load', () => {
+        //     imageCounter ++;
+        //     console.log(elem);
+        //     console.log(imageCounter);
+        // });
+        // if (imageCounter === imagesLen) {
+        //     el.classList.remove('preloader');
+        //
+        // }
     })
 
+    // console.log(imagesLen);
+
+    // console.log(imageCounter);
+
+    // el.classList.remove('preloader');
+    // console.log(el);
 })
+
+// console.log(imageCounter);
 
 //Tabs
 
@@ -48,11 +81,18 @@ document.addEventListener('click', (e) => closeModalOutside(e));
 
 //Func
 const openModal = (modal, button) => {
-    modal.style.display = 'flex';
-    setTimeout( () => {
-        modal.classList.add('open');
-        button.classList.add('active');
-    }, 100)
+
+    if (button.classList.contains('active')) {
+        closeModal(modal, setBtn)
+    } else {
+        modal.style.display = 'flex';
+        setTimeout( () => {
+            modal.classList.add('open');
+            button.classList.add('active');
+        }, 100)
+    }
+
+
 }
 const closeModal = (modal, button) => {
     modal.classList.remove('open');
@@ -68,39 +108,5 @@ const closeModalOutside = (e) => {
 }
 
 
-//-----------------------
-
-/*chrome.tabs.query({currentWindow: true, active: true},
-    function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {
-            type:'fields',
-
-            field1:'1111111',
-            field2:'2222222',
-            field3:'3333333'
-
-        })
-    }
-)*/
 
 
-
-/*$.ajax({
-    type:"GET",
-    url: "https://test.extention/api/domain",
-    data: {
-        domain : 'http://www.olxo.zzz.com.ua/',
-        columns: ['status','country'],
-        manager: 'App\\Models\\Manager'
-    },
-    success:(data) =>  {
-        console.log(data)
-        $('body').prepend('<div>'+data.status+'</div>')
-    }
-});*/
-
-window.addEventListener('message', event => {
-
-        console.log(event.data);
-
-});

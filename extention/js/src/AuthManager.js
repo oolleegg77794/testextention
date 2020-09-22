@@ -16,6 +16,7 @@ class AuthManager {
         this.toolbar = new WtgToolBar()
         this.query = query
 
+
         switch (this.query.type) {
             case 'auth' :
                 this.auth()
@@ -27,6 +28,8 @@ class AuthManager {
                 this.logOut()
                 break;
         }
+
+
     }
 
     auth()
@@ -43,11 +46,8 @@ class AuthManager {
                     this.chromeStorage.setChromeStorage({status: 'autorisated'})
                     this.chromeStorage.setChromeStorage({email: this.query.email})
                     this.sendMessage('success','Вас авторизовано!')
-                    chrome.storage.sync.get(['status'], function(result) {
-                        console.log(result.status);
-                    });
                     $('#iframe2').remove()
-                    this.toolbar.render('iframe1')
+                    this.toolbar.render_index()
                 }
                 if ("error" === response) {
                     this.sendMessage('error','Не правильний email або пароль!')
@@ -80,12 +80,12 @@ class AuthManager {
             () => {
                 this.chromeStorage.setChromeStorage({status: 'not autorisated'})
                 console.log('success logout')
-
                 $('#iframe1').remove()
-                this.toolbar.render('iframe2')
+                this.toolbar.render_logout()
             }
         )
     }
+
 
     formRequest(url, data, onSuccess, type = "POST")  {
         $.ajax({

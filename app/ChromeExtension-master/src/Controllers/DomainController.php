@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use ChromeExtension\DomainSelectOptions;
 use ChromeExtension\Models\Domain;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Psy\Util\Json;
+use Sentinel;
 
 /**
  * Class DomainController
@@ -15,72 +18,106 @@ use Illuminate\Http\Request;
  */
 class DomainController extends Controller
 {
-    const STATUS = [
-        0 => 'Invalid domain',
-        1 => 'Invalid columns',
-        2 => 'Domain not found',
 
+    const STATUS = [
+        'ID' => 'This domain is invalid',
+        'IC' => 'These columns are invalid',
+        'DNF' => 'Domain not found',
     ];
 
     /**
+     * @var Request
+     */
+    private $request;
+
+    /**
+     * @var DomainSelectOptions
+     */
+    private $selectHelper;
+
+    /**
+     * DomainController constructor.
      * @param Request $request
-     * @param DomainSelectOptions $domainSelect
+     * @param DomainSelectOptions $selectHelper
+     */
+    public function __construct(Request $request, DomainSelectOptions $selectHelper)
+    {
+        $this->request = $request;
+        $this->selectHelper = $selectHelper;
+    }
+
+    /**
      * @return array|string
      */
-    public function index(Request $request, DomainSelectOptions $domainSelect)
+    public function index()
     {
 
-        $domain = $request->get('domain');
+        $domain = $this->request->get('domain');
 
         if (null === $domain) {
-            return self::STATUS[0];
+            return static::STATUS['ID'];
         }
 
         try {
             $model = Domain::query()
-                ->select($request->get('columns', ['*']))
-                ->where('domain', $domain)->first()->toArray();
-
+                ->select($this->request->get('columns', ['*']))
+                ->where('domain', $domain)->first();
 
             if (null === $model) {
-                return self::STATUS[2];
+                return static::STATUS['DNF'];
             }
 
-            foreach ($domainSelect->getOption('columns') as $column) {
+            foreach ($this->selectHelper->getOption('columns') as $column) {
                 if (isset($model[$column])) {
-                    $model[$column] = $domainSelect->getOption($column)[$model[$column]];
+                    $model[$column] = $this->selectHelper->getOption($column)[$model[$column]];
                 }
             }
 
-            if (isset($model['manager'])) {
-                $model['manager'] = $this->getManagerInfo($model['manager'], $request->get('manager'));
+            if (isset($model['manager_id'])) {
+                $model->setManagerModel($this->request->get('manager'));
+                $model['manager'] = $model->getManagerInfo();
             }
+
             return $model;
 
         } catch (\Exception $exception) {
-//            return $exception->getMessage();
-            return self::STATUS[1];
+            return static::STATUS['IC'];
         }
     }
 
     /**
-     * @param Request $request
-     * @param DomainSelectOptions $domainSelect
-     * @return array
+     * @return array|string
      */
-    public function options(Request $request, DomainSelectOptions $domainSelect)
+    public function options()
     {
-        return $domainSelect->getOption($request->get('options'));
+        if (null === $this->request->get('options')) {
+            return 'You did not send options';
+        }
+
+        return $this->selectHelper->getOption($this->request->get('options'));
     }
 
-    /**
-     * @param string $manager_id
-     * @param string $model_name
-     * @return mixed
-     */
-    private function getManagerInfo(string $manager_id, string $model_name)
+
+    public function extAuth()
     {
-        return $model_name::query()->select(['name', 'id', 'avatar'])->find($manager_id);
+
+        $credentials = [
+            'email' => $this->request->input('email'),
+            'password' => $this->request->input('password')
+        ];
+
+        Sentinel::Authenticate($credentials);
+
+        if (Sentinel::check()) {
+
+            $token = Session::get('cartalyst_sentinel');
+
+            return view('token')->with(['token'=>$token]);
+        }
+        return 'error';
+
     }
+
+
 
 }

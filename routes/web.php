@@ -13,22 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::any('/token', [\ChromeExtension\Controllers\DomainController::class, 'extAuth'])->name('ext-login');
 
 
+Route::get('/login', 'HomeController@index')->name('home');
 
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Auth::routes();
 
-Route::post('/authenticate', 'ExtentionController@authenticate');
-
-Route::post('/register', 'ExtentionController@register');
-
-Route::post('/logout', 'ExtentionController@logout');
-
-Route::post('/get_site', 'ExtentionController@get_site');
-
-
-Route::any('/', 'ExtentionController@index');
 
